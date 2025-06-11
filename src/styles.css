@@ -3,9 +3,14 @@
 }
 
 body {
-  font-family: sans-serif;
-  margin: 20px;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
   padding: 0;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 h1 {
@@ -57,18 +62,29 @@ body {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: #fafafa;
+  border: 2px solid #ccc;
   float: left;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 60px;
+  height: 60px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 60px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.square:hover {
+  background-color: #e6f7ff;
+}
+
+.square.highlight {
+  background-color: #ffe58f;
+  border-color: #faad14;
 }
 
 .board-row:after {
@@ -80,11 +96,18 @@ body {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 30px;
+  font-size: 16px;
+  color: #555;
 }
