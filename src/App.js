@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
 
+// Square component
 function Square({ value, onSquareClick, highlight }) {
   return (
     <button className={`square ${highlight ? 'highlight' : ''}`} onClick={onSquareClick}>
@@ -9,12 +11,15 @@ function Square({ value, onSquareClick, highlight }) {
   );
 }
 
+
+// Board component
 function Board({ xIsNext, squares, onPlay }) {
 
+  const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const result = calculateWinner(squares);
- const winner = result ? result.winner : null;
-const winningLine = result ? result.line : [];
+  const winner = result ? result.winner : null;
+  const winningLine = result ? result.line : [];
 
   useEffect(() => {
     if (winner) {
@@ -48,7 +53,19 @@ const winningLine = result ? result.line : [];
 
   return (
     <>
-      {showConfetti && <Confetti />}
+      {showConfetti && (
+        <Confetti 
+          width={width}
+          height={height}
+          numberOfPieces={600}
+          gravity={0.3}
+          wind={0.01}
+          tweenDuration={8000}
+          recycle={false}/>)}
+
+    {winner && <div className="winner-banner">Winner: {winner}</div>}
+
+
       <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} highlight={winningLine.includes(0)} />
@@ -69,6 +86,7 @@ const winningLine = result ? result.line : [];
   );
 }
 
+// Main game component
 export default function Game() {
   
   const [history, setHistory] = useState([Array(9).fill(null)]);
@@ -101,17 +119,30 @@ export default function Game() {
   });
 
   return (
+    <>
+    <h1 className="page-title">Tic Tac Toe</h1>
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        {calculateWinner(currentSquares) ? (
+          <button onClick={() => {
+            setHistory([Array(9).fill(null)]);
+            setCurrentMove(0);
+            }}>
+              Restart Game
+          </button>
+          ) : (
+          <ol>{moves}</ol>
+          )}
       </div>
     </div>
-  )
+    </>
+  );
 }
 
+// Winner calculation
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],

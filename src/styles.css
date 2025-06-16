@@ -111,3 +111,29 @@ body {
   font-size: 16px;
   color: #555;
 }
+
+.page-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.winner-banner {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #52c41a; /* Green color */
+  margin-bottom: 20px;
+  animation: pop-in 0.5s ease-out;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
