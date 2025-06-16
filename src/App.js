@@ -13,8 +13,8 @@ function Board({ xIsNext, squares, onPlay }) {
 
   const [showConfetti, setShowConfetti] = useState(false);
   const result = calculateWinner(squares);
-  const winner = result.winner;
-  const line = result.line;
+ const winner = result ? result.winner : null;
+const winningLine = result ? result.line : [];
 
   useEffect(() => {
     if (winner) {
@@ -22,7 +22,7 @@ function Board({ xIsNext, squares, onPlay }) {
       const timer = setTimeout(() => setShowConfetti(false), 4000);
       return () => clearTimeout(timer);
     }
-  }, winner);
+  }, [winner]);
 
   function handleClick(i) {
     if (squares[i] || winner) {
